@@ -1,5 +1,6 @@
-<?php include 'zmienne\zmienne_globalne.php'; ?>
-<?php include 'zmienne\podlaczenie_do_bazy.php'; ?>
+<?php require_once 'zmienne\zmienne_globalne.php'; ?>
+<?php require_once 'zmienne\podlaczenie_do_bazy.php'; ?>
+<?php require_once 'zmienne\dane_sesji.php'; ?>
 <?php
 
 $token_resetu_hasla = "";
@@ -17,10 +18,9 @@ echo $wpisany_mail;
       $zapytanie->bind_param("s", $wygenerowany_token_hasla);
       $zapytanie->execute();
       $zapytanie->bind_result($nazwa_uzytkownika);
-      echo $nazwa_uzytkownika;
       $zapytanie->fetch();
       $zapytanie->close();
-
+      echo $nazwa_uzytkownika;
 
 //Mechanizm wysyłania maila----------------------------------------------------------------------
 $headers[] = 'MIME-Version: 1.0';

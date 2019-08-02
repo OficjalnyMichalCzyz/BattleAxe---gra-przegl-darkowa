@@ -1,5 +1,6 @@
-<?php include 'zmienne\zmienne_globalne.php'; ?>
-<?php include 'zmienne\podlaczenie_do_bazy.php'; ?>
+<?php require_once 'zmienne\zmienne_globalne.php'; ?>
+<?php require_once 'zmienne\podlaczenie_do_bazy.php'; ?>
+<?php require_once 'zmienne\dane_sesji.php'; ?>
 <?php
 if (isset($_POST['wpisany_token']) and isset($_POST['wpisane_haslo'])){
   if($_POST["wpisany_token"] == ""){
@@ -14,7 +15,7 @@ if (isset($_POST['wpisany_token']) and isset($_POST['wpisane_haslo'])){
   $token_resetu_hasla = $_POST["wpisany_token"];
   $wpisane_haslo = hash('sha512', $_POST['wpisane_haslo']);
   $zapytanie = $login->prepare("UPDATE uzytkownicy SET haslo_uzytkownika = ?, INP_uzytkownika = ? WHERE token_resetu_hasla = ?");
-  $zapytanie->bind_param("sss", $wpisane_haslo, $zero, $token_resetu_hasla);
+  $zapytanie->bind_param("sis", $wpisane_haslo, $zero, $token_resetu_hasla);
   $zapytanie->execute();
   $zapytanie->close();
   $zapytanie = $login->prepare("SELECT haslo_uzytkownika FROM uzytkownicy WHERE token_resetu_hasla = ?");
@@ -30,10 +31,13 @@ if (isset($_POST['wpisany_token']) and isset($_POST['wpisane_haslo'])){
    $zapytanie->execute();
    $zapytanie->close();
  } else {
+   echo $token_resetu_hasla;
+   echo "<br />";
+   echo $haslo_uzytkownika;
+   echo "<br />";
+   echo $wpisane_haslo;
    echo "Bład zmiany hasła. Wewnętrzny błąd serwera lub podany token nie istnieje.<br />";
  }
-
-
   ////BAZA DANYCH GRZEBANIE Z HASŁEM I PRÓBAMI
 }
   ?>

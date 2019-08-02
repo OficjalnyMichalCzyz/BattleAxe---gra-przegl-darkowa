@@ -1,11 +1,25 @@
-<?php include 'zmienne\zmienne_globalne.php'; ?>
-<?php include 'zmienne\podlaczenie_do_bazy.php'; ?>
-<?php
-echo "Zalogowano z tokenem: " . $_SESSION["wygenerowany_token"] . ".<br />";
-echo "Zalogowano z IP: " . $_SESSION["ip"] . ".<Br />";
-echo "Zalogowano jako " . $_SESSION["nick"] . ".<br />";
-echo "ID sesji to: " . session_id() . ".<br />";
-echo "<hr />";
+<?php require_once 'zmienne\zmienne_globalne.php'; ?>
+<?php require_once 'zmienne\podlaczenie_do_bazy.php'; ?>
+<?php require_once 'zmienne\dane_sesji.php'; ?>
+<?php require_once 'zmienne\anty_pusta_sesja.php'; ?>
+
+
+<!DOCTYPE html>
+<html>
+
+<body>
+<form method="POST">
+  <div>
+   </div>
+
+  <button type="submit">Odśwież</button>
+</form>
+
+
+  <?php
+echo "Zalogowano.<br />
+<a href='wylogowano.php'>Wyloguj</a></h3>
+</div>";
 ?>
-<a href='odzyskanie_hasla.php'>Haslo</a>
-<a href='wylogowano.php'>Wyloguj</a>
+</body>
+</html>
