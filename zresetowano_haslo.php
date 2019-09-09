@@ -31,11 +31,11 @@ if (isset($_POST['wpisany_token']) and isset($_POST['wpisane_haslo'])){
    $zapytanie->execute();
    $zapytanie->close();
  } else {
-   echo $token_resetu_hasla;
-   echo "<br />";
-   echo $haslo_uzytkownika;
-   echo "<br />";
-   echo $wpisane_haslo;
+  // echo $token_resetu_hasla;
+  // echo "<br />";
+  // echo $haslo_uzytkownika;
+  // echo "<br />";
+  // echo $wpisane_haslo;
    echo "Bład zmiany hasła. Wewnętrzny błąd serwera lub podany token nie istnieje.<br />";
  }
   ////BAZA DANYCH GRZEBANIE Z HASŁEM I PRÓBAMI
@@ -46,8 +46,8 @@ if (isset($_POST['wpisany_token']) and isset($_POST['wpisane_haslo'])){
   <body>
   <form method="POST">
     <h2>Proszę wpisać nowe hasło</h2>
-      <input type="text" name="wpisany_token" required>
-      <input type="password" name="wpisane_haslo" required>
+      <input type="text" name="wpisany_token" required> Token <br />
+      <input type="password" name="wpisane_haslo" required> Nowe Hasło <br />
     <button type="submit">Zmień hasło</button>
   </form>
 

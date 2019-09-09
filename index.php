@@ -1,6 +1,14 @@
 <?php require_once 'zmienne\zmienne_globalne.php'; ?>
 <?php require_once 'zmienne\podlaczenie_do_bazy.php'; ?>
 <?php require_once 'zmienne\dane_sesji.php'; ?>
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+
 <?php
 
 //Pobieranie danych z forma + inne rzeczy------------------------------------------------------------------------------------------------------------
@@ -55,13 +63,6 @@ echo "Pomyślnie zalogowano na użytkownika " . $wpisany_login .".";
 }
 $login->close();
 
-echo '
-<!DOCTYPE html>
-<html>
-
-
-<body>
-';
 if (isset($_SESSION["wygenerowany_token"]) && isset($_SESSION["ip"]) && isset($_SESSION["nick"]) && isset($_SESSION["id"])) {
   echo "Czy to Ty, " . $_SESSION["nick"] . "? <br /> Kliknij <a href='zalogowano.php'>tutaj</a> aby powrócić do gry. <br /> To nie Ty? Wyloguj się <a href='wylogowano.php'>tutaj</a>.";
 } else {
@@ -84,7 +85,8 @@ echo '
 
 
 
-</body>
-</html>
+
 ';
 ?>
+</body>
+</html>

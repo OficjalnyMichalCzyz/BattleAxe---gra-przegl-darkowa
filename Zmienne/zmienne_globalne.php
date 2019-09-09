@@ -6,4 +6,5 @@ $admin_baza = "baza_uzytkownikow";
 $ip_uzytkownika = $_SERVER['REMOTE_ADDR'];
 $zero = 0;
 $nic = "";
+$brak = "brak";
 ?>
