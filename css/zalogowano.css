@@ -1,0 +1,24 @@
+html,body{
+  padding: 0;
+  margin: auto;
+}
+.EQ_main{
+width: 450px;
+height: 375px;
+}
+.EQ{
+position: relative;
+display: block;
+width:150px;
+height:125px;
+float: left;
+background-image: url("../placeholder/Hud/EQ_Slot.png");
+color: white;
+padding: 5px;
+box-sizing: border-box;
+}
+.EQ_img_func{
+  position: absolute;
+  right: 5px;
+  bottom: 7px;
+}
