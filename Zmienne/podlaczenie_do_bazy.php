@@ -8,13 +8,13 @@ if (mysqli_connect_errno()) {
     echo "Debugging error: " . mysqli_connect_error() . "<br />";
     exit(1);
 }
-echo "Zalogowano oraz podłączono do " . $admin_baza . "<br />";
-echo mysqli_get_host_info($login) . "<br />";
+//echo "Zalogowano oraz podłączono do " . $admin_baza . "<br />";
+//echo mysqli_get_host_info($login) . "<br />";
 if (!$login->set_charset("utf8mb4")){
     echo "Błąd podczas ładowania tablicy kodowej utf8mb4: " . $login->error;
     exit();
 } else {
-    echo "Aktualna strona kodowa: " . $login->character_set_name() . "<br />";
+    //echo "Aktualna strona kodowa: " . $login->character_set_name() . "<br />";
 }
 $zapytanie = $login->prepare("SELECT token_sesji, adres_ip_uzytkownika FROM uzytkownicy WHERE token_sesji = ?");
     $zapytanie->bind_param("s", $_SESSION["wygenerowany_token"]);

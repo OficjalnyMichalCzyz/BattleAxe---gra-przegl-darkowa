@@ -2,9 +2,17 @@ html,body{
   padding: 0;
   margin: auto;
 }
+.Main_container{
+  width: 900px;
+  height: 100%;
+  background-color: red;
+  margin: auto;
+}
 .EQ_main{
+display: block;
 width: 450px;
 height: 375px;
+float: right;
 }
 .EQ{
 position: relative;
@@ -18,7 +26,7 @@ padding: 5px;
 box-sizing: border-box;
 }
 .EQ_img_func{
-  position: absolute;
-  right: 5px;
-  bottom: 7px;
+position: absolute;
+right: 5px;
+bottom: 7px;
 }
