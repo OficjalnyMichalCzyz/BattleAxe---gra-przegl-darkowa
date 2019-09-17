@@ -18,15 +18,15 @@ $stop_zapytaniom = false;
 $RysujStrone = True;
 $Login_Correct = "";
 ///
-
+//Spradzenie czy strona jest uruchamiana bez parametrów lub czy strona jest uruchamiana już z wpisanym formularzem
 if (isset($_POST['wpisany_login']) && isset($_POST['wpisany_haslo']) && isset($_POST['wpisany_haslo_p']) && isset($_POST['wpisany_mail']) && isset($_POST['wpisany_nick'])){
-
+  //Sprawdzenie czy każde pole na dane zostało wypełnione
   if(isset($_POST['wpisany_login'])){ $Temp_Login = $_POST['wpisany_login'];}
   if(isset($_POST['wpisany_haslo'])){ $Temp_Haslo = $_POST['wpisany_haslo'];}
   if(isset($_POST['wpisany_haslo_p'])){ $Temp_Haslo_P = $_POST['wpisany_haslo_p'];}
   if(isset($_POST['wpisany_mail'])){ $Temp_Mail = $_POST['wpisany_mail'];}
   if(isset($_POST['wpisany_nick'])){ $Temp_Nick = $_POST['wpisany_nick'];}
-
+  //Sprawdzanie patterów danych zmiennych: nicki bez spacji, skomplikowanie hasel, poprawność powtórzenia hasła itd
   $pattern = "/[A-Za-z0-9]{3,18}$/";
   if(preg_match($pattern, $_POST['wpisany_login']) == true ){
   //  echo "Login prawidlowy <br />";
@@ -87,10 +87,13 @@ if (isset($_POST['wpisany_login']) && isset($_POST['wpisany_haslo']) && isset($_
     $Temp_Haslo_P = "Hasła nie są identyczne!";
   }
 }
+//Sprawdzenie czy wszystko jest ok, jeśli ok to zakłada konto(NARAZIE BEZ TWORZENIA POSTACI)
+//// TODO: zaimplementować tworzenie postaci przy zakładaniu konta
+///////////////////////////////////////////////////////////////////////////////////////////////
 if($Login_Correct && $Haslo_Correct && $HasloP_Correct && $Mail_Correct && $Nick_Correct && $Identycznosc_Correct && isset($Login_Correct)){
 
   $hashowane_haslo = hash('sha512', $_POST['wpisany_haslo']);
-
+  //Sprawdzenie czy Mail/nazwa uzytkownika/nick są zajęte
   $zapytanie = $login->prepare("SELECT nazwa_uzytkownika FROM uzytkownicy WHERE nazwa_uzytkownika = ?");
   $zapytanie->bind_param("s", $Temp_Login);
   $zapytanie->execute();
@@ -124,6 +127,7 @@ if($Login_Correct && $Haslo_Correct && $HasloP_Correct && $Mail_Correct && $Nick
     $stop_zapytaniom = true;
     $Mail_Style = "Red";
   }
+  //Jeśli nie ma żadnych przeszkód to program zakłada konto według wpisanych danych oraz nie przystępuje do rysowania reszty strony
         if($stop_zapytaniom == false){
            $zapytanie = $login->prepare("INSERT INTO uzytkownicy (nazwa_uzytkownika, haslo_uzytkownika, email_uzytkownika, nick_uzytkownika, INP_uzytkownika, token_sesji, adres_ip_uzytkownika) VALUES (?, ?, ?, ?, ?, ?, ?)");
            $zapytanie->bind_param("ssssiss", $Temp_Login, $hashowane_haslo, $Temp_Mail, $Temp_Nick, $zero, $brak, $brak);

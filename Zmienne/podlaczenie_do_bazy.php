@@ -23,6 +23,7 @@ $zapytanie = $login->prepare("SELECT token_sesji, adres_ip_uzytkownika FROM uzyt
     $zapytanie->fetch();
     $zapytanie->close();
     //echo $_SESSION["wygenerowany_token"] . $porownawczy_token . $_SESSION["ip"] . $porownawcze_ip;
+    //Sprawdzenie token sesji istnieje
     if(isset($_SESSION["wygenerowany_token"]) && isset($_SESSION["ip"])){
       if($porownawcze_ip != $_SESSION["ip"]){echo "Sesja wygasła <br /><br /> <a href='wylogowano.php'>Wyloguj</a></h3>"; exit();}
       if($porownawczy_token != $_SESSION["wygenerowany_token"]){echo "Sesja wygasła <br /><br /> <a href='wylogowano.php'>Wyloguj</a></h3>"; exit();}

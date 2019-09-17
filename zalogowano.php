@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <!-- Narazie postawiłem na style w pliku, gdyż cacheowanie plików .css przez chrome jest uciążliwe-->
   <link rel="stylesheet" href="css/zalogowano.css">
 <style>
   .Menu_opcja_active{
@@ -111,8 +112,10 @@
     }
   </style>
 </head>
+  <!-- Funkcje przeładowywujące strone z odpowiednim parameterm GET, aby przekazać dane do trenowania lub zamiany przedmiotów -->
 <script>
   function Sila(Aktualna_Sila){
+    //Przeładowywuje strone z parametrem aktualnej siły aby uniknąć złośliwych linków zwiekszających siłę
     window.open(window.location.href+"?TrenujSile="+Aktualna_Sila,"_self")
   }
   function Zrecznosc(Aktualna_Zrecznosc){
@@ -122,11 +125,13 @@
     window.open(window.location.href+"?TrenujWytrzymalosc="+Aktualna_Wytrzymalosc,"_self")
   }
   function Sprzedaj(Numer_przedmiotu){
+    //Przeładowywuje stronę z numerek przedmiotu do sprzedania
+    //TODO zabezpieczenie przed złośliwymi linkami sprzedajacymi przedmioty po kliknięciu
     window.open(window.location.href+"?Sprzedaj="+Numer_przedmiotu,"_self")
   }
 </script>
 <?php
-
+//Pobranie stanu gry z servera na podstawie ID użytkownika trzymanego w SESJI
 $zapytanie = $login->prepare("SELECT Poziom, Doswiadczenie, Zdrowie, Zloto, Sila, Zrecznosc, Wytrzymalosc, ID_broni, ID_pancerza, Godzina_zajecia, ID_misji, Postep FROM postacie WHERE ID_uzytkownika = ?");
     $zapytanie->bind_param("s", $_SESSION["id"]);
     $zapytanie->execute();
@@ -141,7 +146,9 @@ $zapytanie = $login->prepare("SELECT Poziom, Doswiadczenie, Zdrowie, Zloto, Sila
         $zapytanie->close();
         $EQ_slots = array(0,$EQ_Slot_1_Item_ID, $EQ_Slot_2_Item_ID, $EQ_Slot_3_Item_ID, $EQ_Slot_4_Item_ID, $EQ_Slot_5_Item_ID, $EQ_Slot_6_Item_ID, $EQ_Slot_7_Item_ID, $EQ_Slot_8_Item_ID, $EQ_Slot_9_Item_ID);
 if(isset($_GET["TrenujSile"])){
+      //Sprawdzenie czy użytkownika stać na daną akcję
       if($Zloto_uzytkownika >= ($Sila_uzytkownika*2+3)){
+        //Sprawdzenie czy link jest prawidłowy
         if($_GET["TrenujSile"] == $Sila_uzytkownika){
           $Zloto_uzytkownika = $Zloto_uzytkownika - $Sila_uzytkownika*2-3;
           $Sila_uzytkownika++;
@@ -187,6 +194,7 @@ if(isset($_GET["TrenujWytrzymalosc"])){
     }
 if(isset($_GET["Sprzedaj"])){
   $Sprzedaj = $_GET["Sprzedaj"];
+  //Sprawdzenie czy podane miejsce w plecaku nie jest puste, 0 = puste
   if($EQ_slots[$Sprzedaj] == 0){
     echo "<script>alert('Podany przedmiot nie istnieje! " . $EQ_slots[$Sprzedaj] . "');
     window.location = window.location.pathname;
@@ -194,6 +202,7 @@ if(isset($_GET["Sprzedaj"])){
   } else {
     echo $EQ_slots[$Sprzedaj];
     $ID_slotu = "EQ_Slot_" . $Sprzedaj . "_Item_ID";
+    //6,3 czyli od 6 miejsca 3 znaki to wyciągniecie wartości przedmiotu z jego kodu. Np.: 00100400800PZbroja rycerska jest warta 8 złota
     $Finalna_ilosc_zlota = $Zloto_uzytkownika + substr($EQ_slots[$Sprzedaj], 6,3 );
     echo $ID_slotu;
     $zapytanie = $login->prepare("UPDATE postacie SET Zloto = ?, $ID_slotu = ? WHERE ID_uzytkownika = ?");
@@ -212,6 +221,7 @@ echo "<div class='Main_container'>";
   <span class="Tytul">BattleAxe</span>
 </div>
 <div class="Cala_szerokosc_div">
+  <!-- menu główne -->
   <div class="Menu_opcja_active"><a href='zalogowano.php'>Podgląd</div>
   <div class="Menu_opcja"><a href='wyprawa.php'>Wyprawa</div>
   <div class="Menu_opcja"><a href='arena.php'>Arena</div>
@@ -236,6 +246,7 @@ echo "<div class='Main_container'>";
   <div class='EQ_rzad'>
     <div class='Nadprzedmiotami'>
       <div class='EQ_Sell_Equip'>
+        <!-- Nad opisami przedmiotów jest zawieszony DIV który po najechanu ujawnia opcje sprzedaży oraz użycia przedmiotu-->
         <img src="placeholder/Hud/Sprzedaj.png" onclick="Sprzedaj(1);" />
       </div>
       <div class='EQ_Sell_Equip'>
@@ -272,6 +283,7 @@ echo "<div class='Main_container'>";
 <div class="EQ_main">
   <span class="Statystyki_text">
   <?php
+  //Wypisanie statystyk do odpowiedniego DIVa, wraz z przekierowaniami do trenowania oraz obliczeniami obrażeń oraz kosztów w złocie
   echo "Poziom doświadczenia: " . $poziom_uzytkownika . " <br />
   Doświadczenie: " . $Doswiadczenie_uzytkownika . "<br />
   Punkty zdrowia: " . $Zdrowie_uzytkownika . "/" . ($Wytrzymalosc_uzytkownika*4+4) ."<br />
@@ -301,6 +313,7 @@ echo "<div class='Main_container'>";
 <div class="EQ_main">bb
 </div>
 <?php
+//Temporarne uruchamianie mechanizmu renderującego przedmioty na stronie
 echo "<script>RenderujPrzedmioty('" . $EQ_Slot_1_Item_ID . "', '1');</script>";
 echo "<script>RenderujPrzedmioty('" . $EQ_Slot_2_Item_ID . "', '2');</script>";
 echo "<script>RenderujPrzedmioty('" . $EQ_Slot_3_Item_ID . "', '3');</script>";

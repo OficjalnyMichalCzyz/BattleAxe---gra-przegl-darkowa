@@ -1,3 +1,33 @@
+/////////////////////////////////////////////////////////////////////////
+//Mechanizm renderowania przedmiotów bez osobnej tabeli z przedmiotami //
+/////////////////////////////////////////////////////////////////////////
+//AAABBBCCCOOTNAZWA
+// ^  ^  ^   ^  ^=Nazwa przedmiotu
+//MINMAX |   TYP -------> Typ przedmiotu Bron/Pancerz/Jedzenie
+//DMGDMG |                               ^    ^       ^
+//    WARTOŚC                                                             <-------Schemat Broni
+//
+//  "OO" -> Id obrazka przedmiotu
+//
+///////////////////////
+//ZZYYXXCCCOOTNAZWA
+//^ ^ ^  ^   ^  ^=Nazwa przedmiotu
+//STZRWT |  TYP -------> Typ przedmiotu Bron/Pancerz/Jedzenie
+//Siła Wartość
+//  Zręczność                                                            <-------Schemat Pancerza
+//	  Wytrzymalosc
+//
+//  "OO" -> Id obrazka przedmiotu
+//
+///////////////////////
+//AAA___CCCOOTNAZWA
+// ^      ^   ^  ^=Nazwa przedmiotu
+// |      |  TYP -------> Typ przedmiotu Bron/Pancerz/Jedzenie
+// |   Wartość
+// leczenie                                                              <-------Schemat jedzenia
+//  "OO" -> Id obrazka przedmiotu
+//  Nazwy mogą mieć ponad 30 znaków, cały mechanizm pozwala na dynamiczne generowanie losowych przedmiotów, ich łatwe przechowanie oraz modyfikację w locie
+//////////
 function RenderujPrzedmioty(ID, NR) {
   if ((ID.slice(11, 12)) == "B") {
     var ID = {
@@ -8,7 +38,9 @@ function RenderujPrzedmioty(ID, NR) {
       Typ: parseInt(ID.slice(11, 12), 10),
       Nazwa: ID.slice(12),
     }
+    //Narysowanie obrazka danego przemiotu
     var Obrazek = "<img class='EQ_img_func' src='placeholder\\bronie\\Bron" + ID.Obrazek + ".png'>";
+    //Wypisanie statystyk danego przemiotu poprzez modyfikację innerHTML
     document.getElementById(("EQ_Slot_" + NR)).innerHTML = ID.Nazwa + "<br>Obrażenia: " + ID.ObrMin + " - " + ID.ObrMax + "<br> <br> <br>Wartość: " + ID.Zloto + " <br>Broń<br>" + Obrazek;
   }
   if ((ID.slice(11, 12)) == "P") {
@@ -35,5 +67,5 @@ function RenderujPrzedmioty(ID, NR) {
     var Obrazek = "<img class='EQ_img_func' src='placeholder\\Jadalne\\Jadalne" + ID.Obrazek + ".png'>";
     document.getElementById(("EQ_Slot_" + NR)).innerHTML = ID.Nazwa + "<br>Leczy: " + ID.Leczy +  "<br><br> <br> Wartość: " + ID.Zloto + "<br>Jadalne<br>" + Obrazek;
   }
-//www.php.net/manual/en/function.array-slice.php
+
 }

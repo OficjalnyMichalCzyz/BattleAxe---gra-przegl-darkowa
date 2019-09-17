@@ -55,6 +55,7 @@ echo "Pomyślnie zalogowano na użytkownika " . $wpisany_login .".";
       $_SESSION["wygenerowany_token"] = $wygenerowany_token;
       $_SESSION["ip"] = $ip_uzytkownika;
       $_SESSION["nick"] = $nick_uzytkownika;
+      //Za pomocą $_SESSION["id"] będziemy identyfikować naszą postać podczas zapytań do MySQLa
       $_SESSION["id"] = $ID_uzytkownika;
 
       $login->close();
@@ -62,7 +63,7 @@ echo "Pomyślnie zalogowano na użytkownika " . $wpisany_login .".";
       exit();
 }
 $login->close();
-
+//Sprawdzenie czy użytkownik jest już zalogowany, a jeśli jest zasugerowanie powrotu do gry jednym kliknięciem
 if (isset($_SESSION["wygenerowany_token"]) && isset($_SESSION["ip"]) && isset($_SESSION["nick"]) && isset($_SESSION["id"])) {
   echo "Czy to Ty, " . $_SESSION["nick"] . "? <br /> Kliknij <a href='zalogowano.php'>tutaj</a> aby powrócić do gry. <br /> To nie Ty? Wyloguj się <a href='wylogowano.php'>tutaj</a>.";
 } else {

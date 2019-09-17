@@ -2,7 +2,8 @@
 <?php require_once 'zmienne\podlaczenie_do_bazy.php'; ?>
 <?php require_once 'zmienne\dane_sesji.php'; ?>
 <?php
-
+//Szyfrowanie hasła, generowanie tokenu w oparciu o datę, email oraz IP użytkownika. Napisanie rubryki z tokenem mailowym danym tokenem oraz wysłanie go do użytkownika pocztą
+//Otrzymany token wpisujemy na stronie zresetowano_haslo.php gdyż skrzyni mailowe blokują linki
 $token_resetu_hasla = "";
 if (isset($_POST['wpisany_mail'])){
   $wpisany_mail = $_POST['wpisany_mail'];
@@ -23,6 +24,7 @@ echo $wpisany_mail;
       echo $nazwa_uzytkownika;
 
 //Mechanizm wysyłania maila----------------------------------------------------------------------
+//Kodowanie HTML działa, wysyłane z użyciem servera Hmail
 $headers[] = 'MIME-Version: 1.0';
 $headers[] = 'Content-type: text/html; charset=UTF-8';
 $headers[] = "From: BattleAxe@timotarea.wi.net.pl";
