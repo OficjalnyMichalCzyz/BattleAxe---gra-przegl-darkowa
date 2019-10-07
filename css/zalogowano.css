@@ -30,3 +30,103 @@ position: absolute;
 right: 5px;
 bottom: 7px;
 }
+  .Menu_opcja_active{
+    opacity: 1;
+    width: 180px;
+    height: 50px;
+    display: block;
+    float: left;
+    text-align: center;
+    font-size: 32px;
+    background-color: yellow;
+    line-height: 50px;
+  }
+  .Menu_opcja{
+    width: 180px;
+    height: 50px;
+    display: block;
+    float: left;
+    text-align: center;
+    font-size: 32px;
+    opacity: 0.8;
+    transition: 0.3s;
+    background-color: yellow;
+    line-height: 50px;
+  }
+  a:link {
+    text-decoration: none;
+  }
+  a:visited {
+    color: black;
+  }
+    .Menu_opcja:hover{
+      width: 180px;
+      height: 50px;
+      opacity: 1;
+      text-decoration: none;
+    }
+    .Cala_szerokosc_div{
+    display: block;
+    width: 900px;
+    height: 50px;
+    background-color: yellow;
+    }
+    .Polowa_szerokosc_div{
+    display: block;
+    width: 450px;
+    height: 50px;
+    background-color: green;
+    float: left;
+    text-align: center;
+    font-size: 24px;
+    line-height: 50px;
+    }
+    .Statystyki_text{
+    font-size: 24px;
+    line-height: 35px;
+    }
+    .Tytul{
+    font-size: 48px;
+    line-height: 50px;
+    }
+    .center_text{
+    text-align: center;
+    }
+    .EQ_zalozone{
+    position: relative;
+    display: block;
+    width:150px;
+    height:125px;
+    float: left;
+    background-image: url("placeholder/Hud/EQ_Slot.png");
+    color: white;
+    margin: 8%;
+    box-sizing: border-box;
+    padding: 5px;
+    }
+    .Nadprzedmiotami{
+    z-index: 10;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 450px;
+    height: 375px;
+    }
+    .EQ_Sell_Equip{
+    position: relative;
+    display: block;
+    width:75px;
+    height:125px;
+    float: left;
+    color: white;
+    box-sizing: border-box;
+    z-index: 15;
+    opacity: 0;
+    transition-duration: 0.5s;
+    }
+    .EQ_Sell_Equip:hover{
+    opacity: 0.9;
+    }
+    .EQ_rzad{
+      position: relative;
+    }
